@@ -1,20 +1,20 @@
 import React, { FC } from 'react';
 import blessed, { screen } from 'neo-blessed';
 import { createBlessedRenderer } from 'react-blessed';
+import { AppLayout } from 'layout';
 
 const render = createBlessedRenderer(blessed);
 
 const AppModule: FC = () => (
-  <box
-    top='center'
-    left='center'
-    width='80%'
-    height='80%'
-    border={{ type: 'line' }}
-    style={{ border: { fg: 'blue' } }}
+  <AppLayout 
+    label={'test'}
+    top={5}
+    right={5}
+    bottom={5}
+    left={5}
   >
-    Hello World! This is test for HMR!
-  </box>
+    Hello Terminal World!
+  </AppLayout>
 );
 
 const scr = screen({
