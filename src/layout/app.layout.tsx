@@ -6,6 +6,7 @@ export interface AppLayoutProps {
   right: number;
   bottom: number;
   left: number;
+  style: {};
 }
 
 export const AppLayout: FC<AppLayoutProps> = ({
@@ -14,6 +15,7 @@ export const AppLayout: FC<AppLayoutProps> = ({
   right,
   bottom,
   left,
+  style,
   children
 }) => (
   <box
@@ -28,7 +30,7 @@ export const AppLayout: FC<AppLayoutProps> = ({
       bottom,
       left
     }}
-    style={{ border: { fg: 'blue' } }}
+    style={style}
     label={label}
   >
     {children}
