@@ -28,14 +28,7 @@ const AppModule: FC = () => (
 
 const screenOptions: Widgets.IScreenOptions = {
   autoPadding: true,
-  cursor: {
-    artificial: true,
-    color: 'red',
-    shape: 'block',
-    blink: true,
-  },
   smartCSR: true,
-  terminal: 'xterm',
   title: 'Blessed test ground',
   warnings: true,
 }
