@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import blessed, { screen, Widgets } from 'neo-blessed';
+import * as blessed from 'neo-blessed';
 import { createBlessedRenderer } from 'react-blessed';
 import { AppLayout } from 'layout';
 import { SectionLayout } from 'layout/section.layout';
@@ -8,37 +8,39 @@ const render = createBlessedRenderer(blessed);
 
 const desc = 'This is a layout test';
 
-const AppModule: FC = () => (
-  <AppLayout 
-    label={'Test Grounds'}
-    top={5}
-    right={5}
-    bottom={5}
-    left={5}
-    style={{ bg: 'blue' }}
-  >
-    <SectionLayout
-      title='Test Project'
-      description={desc}
-    >
-      test section!
-    </SectionLayout>
-  </AppLayout>
-);
-
-const screenOptions: Widgets.IScreenOptions = {
-  autoPadding: true,
-  smartCSR: true,
-  title: 'Blessed test ground',
-  warnings: true,
+const AppModule: FC = () => {
+  return (
+    <>
+      <AppLayout 
+        label={'Test Grounds'}
+        top={5}
+        right={5}
+        bottom={5}
+        left={5}
+        style={{ bg: 'blue' }}
+      >
+        <SectionLayout
+          title='Test Project'
+          description={desc}
+        >
+          test section!
+        </SectionLayout>
+      </AppLayout>
+    </>
+  );
 }
 
-const scr = screen(screenOptions);
+const scr = blessed.screen({
+  autoPadding: true,
+  smartCSR: true,
+  title: 'Blessed test ground'
+});
 
 scr.key(['escape', 'q', 'C-c'], () => process.exit(0));
 
-scr.key(['tab'], function(){ this.focusNext(); });
+scr.key(['tab'], () => {
+  scr.focusNext(); 
+  console.log(`current focus: ${scr.focused.index}`);
+});
 
-const app = render(<AppModule />, scr);
-
-scr.render();
+render(<AppModule />, scr);

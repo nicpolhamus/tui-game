@@ -19,6 +19,8 @@ export const AppLayout: FC<AppLayoutProps> = ({
   children
 }) => (
   <box
+    focusable
+    name='test-layout'
     top='center'
     left='center'
     width='80%'
@@ -32,6 +34,7 @@ export const AppLayout: FC<AppLayoutProps> = ({
     }}
     style={style}
     label={label}
+    keys
   >
     {children}
   </box>

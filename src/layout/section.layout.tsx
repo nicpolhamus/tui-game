@@ -1,5 +1,5 @@
-import React, { FC, useRef } from 'react';
-import { BoxElement } from 'react-blessed';
+import React, { FC, useEffect, useRef, useState } from 'react';
+import { ButtonElement } from 'react-blessed';
 
 interface SectionProps {
   title?: string,
@@ -7,29 +7,41 @@ interface SectionProps {
 }
 
 export const SectionLayout: FC<SectionProps> = ({ title, description, children }) => {
-  const sectionBoxRef = useRef<BoxElement>(null);
+  const [ isOpen, setIsOpen ] = useState(true);
+  const closeButtonRef = useRef<ButtonElement>(null);
 
-  const closeSection = (key: any) => {
-    if (key === 'enter') {
-      sectionBoxRef.current?.destroy();
+  useEffect(() => {
+    if (closeButtonRef.current) {
+      closeButtonRef.current.focus();
+    }
+  }, []);
+
+  const closeSection = (key: any, event: any) => {
+    if (event.name === 'enter') {
+      setIsOpen(!isOpen);
     }
   }
 
-  return (
+  return isOpen && (
     <box
+      focusable
+      name='section-layout'
       top='center'
       left='center'
       width='60%'
       height='60%'
       border={{ type: 'line' }}
       style={{ bg: 'green', border: { fg: 'green' }}}
-      ref={sectionBoxRef}
+      keys
     >
       <button
+        focusable
+        name='section-close-button'
         left='2%'
         mouse
         keys
         shrink
+        ref={closeButtonRef}
         onKeypress={closeSection}
         style={
           {
@@ -45,8 +57,9 @@ export const SectionLayout: FC<SectionProps> = ({ title, description, children }
       >
         x
       </button>
-      <line orientation='horizontal' top='5%'></line>
+      <line focusable={false} orientation='horizontal' top='5%'></line>
       <box
+        focusable
         label='Project'
         top='8%'
         left='left'
@@ -56,6 +69,7 @@ export const SectionLayout: FC<SectionProps> = ({ title, description, children }
         {children}
       </box>
       <text
+        focusable={false}
         label='Name'
         top='8%'
         left='60%'
@@ -66,6 +80,7 @@ export const SectionLayout: FC<SectionProps> = ({ title, description, children }
         {title}
       </text>
       <text
+        focusable={false}
         label='Info'
         top='19%'
         left='60%'

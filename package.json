@@ -13,7 +13,7 @@
   "scripts": {
     "start": "webpack",
     "watch": "yarn start -w",
-    "dev": "nodemon ./build/app.js"
+    "dev": "node ./build/app.js"
   },
   "dependencies": {
     "neo-blessed": "^0.2.0",
