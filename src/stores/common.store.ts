@@ -1,16 +1,23 @@
-import { produce } from 'immer';
-import set from 'zustand';
-
-type CommonStore = {
-  focus: number,
-  setFocus: Function
-};
-
-export const commonStore: CommonStore = {
-  focus: undefined as number,
-  setFocus: (elementIndex: number) => set(
-    produce((draft: CommonStore) => {
-      draft.focus = elementIndex;
-    })
-  ),
+export interface ICommonStore {
+  isButtonExpActive: boolean;
+  isPictureExpActive: boolean;
+  toggleButtonExpActive: Function;
+  togglePictureExpActive: Function;
 }
+
+export const commonStore = (set: any, produce: Function) => ({
+  isButtonExpActive: false,
+  isPictureExpActive: false,
+  toggleButtonExpActive: () =>
+    set(
+      produce((draft: ICommonStore) => {
+        draft.isButtonExpActive = !draft.isButtonExpActive;
+      })
+    ),
+  togglePictureExpActive: () =>
+    set(
+      produce((draft: ICommonStore) => {
+        draft.isPictureExpActive = !draft.isPictureExpActive;
+      })
+    ),
+});

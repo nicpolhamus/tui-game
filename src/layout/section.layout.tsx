@@ -14,7 +14,7 @@ export const SectionLayout: FC<SectionProps> = ({ title, description, children }
     if (closeButtonRef.current) {
       closeButtonRef.current.focus();
     }
-  }, []);
+  }, [closeButtonRef.current]);
 
   const closeSection = (key: any, event: any) => {
     if (event.name === 'enter') {
